@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="400" height='400' style='border:1px solid #ccc'>
+
+    </canvas>
+    <script>
+        var cav=document.querySelector('canvas').getContext("2d");
+        var data={
+            val:[0.05,0.25,0.1,0.6],
+            color:['yellow','purple','blue','green'],
+        }
+        var deg=Math.PI/180,
+            cont=0,
+            prev=0,
+            end=0,
+            start=0,
+            timer=null;
+       data.val.forEach(function(v,i){
+            prev=time(prev,v*360+prev,data.color[i]);
+       })
+       function time(prev,end,color){
+            cont=0;
+            requestAnimationFrame(move);
+            function move(){
+                    cont++;
+                    if(cont+prev<end){
+                        requestAnimationFrame(move);
+                    }
+                    cav.beginPath();
+                    cav.moveTo(200,200)
+                    cav.arc(200,200,100,prev*deg,(cont+prev)*deg,false);
+                    cav.fillStyle=color;
+                    cav.fill();
+            }
+            return end;
+        }
+    </script>
+</body>
+</html>
